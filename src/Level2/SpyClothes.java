@@ -1,5 +1,8 @@
 package Level2;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class SpyClothes {
 
 	public static void main(String[] args) {
@@ -46,31 +49,26 @@ public class SpyClothes {
 
 		String[][] clothes = {{"yellow_hat", "headgear"}, {"blue_sunglasses", "eyewear"}, {"green_turban", "headgear"}};
 		
-		solution(clothes);
+		System.out.println(solution(clothes));
 	}
 	
     public static int solution(String[][] clothes) {
-        int answer = 0;
+        int answer = 1;
         
-        System.out.println(clothes[0][0]);
-        System.out.println(clothes[0][1]);
+        Map<String, Integer> clothesMap = new HashMap<>();
         
-        int cnt = 0;
-        TO-DO
-        //그냥 한가지만 착용하는 경우
         for(int i = 0 ; i < clothes.length; i++){
-        	System.out.println(clothes[i][0]);
-        	cnt++;
-        }
-        System.out.println("=============");
-        
-        //여러 가지 착용하는 경우
-        for(int i = 0 ; i < clothes.length; i++){
-        	System.out.println(clothes[i][1]);
+        	//종류가 같을 경우 Map에 추가
+        	clothesMap.put(clothes[i][1], clothesMap.getOrDefault(clothes[i][1], 0)+1);
         }
         
+        //옷가지수 + 안입을 경우
+        for (int val : clothesMap.values()){
+        	answer *= (val+1);
+        }
         
-        return answer;
+        // 모두 다 안입는 경우는 존재하지 않음 -1
+        return answer-1;
     }
 
 }
