@@ -32,8 +32,8 @@ public class FunctionDevelop {
 //
 //		따라서 7일째에 2개의 기능, 9일째에 1개의 기능이 배포됩니다.
 		
-		int[] progresses = {93,30,55};
-		int[] speeds = {1,30,5};
+		int[] progresses = 	{93, 30, 55 };
+		int[] speeds = 		{1,  30, 5};
 		solution(progresses, speeds);
 		
 	}
@@ -41,6 +41,7 @@ public class FunctionDevelop {
 	public static int[] solution(int[] progresses, int[] speeds) {
         
 		int[] days = new int[progresses.length];
+		List<Integer> days_ = new ArrayList<Integer>();
 		
         for(int i = 0; i < progresses.length; i++){
         	int day = 0;
@@ -54,36 +55,37 @@ public class FunctionDevelop {
         		}
         	}
 //    		System.out.println(day);
-    		days[i]=day;
+//    		days[i]=day;
+        	days_.add(i,day);
         }
+//        System.out.println(days_);
         
-        int chk =days[0]; //7,3,9
-        
+        int chk = 0; //7,3,9,5
+        int cnt = 1;
         List<Integer> deploy = new ArrayList<Integer>();
-        int k = 1;
-        for(int i = 1; i < progresses.length; i++){
-//        	System.out.println("days[i]: "+ days[i]);
-//        	System.out.println("chk: "+chk);
-        	if(chk>=days[i]){
-//        		System.out.println("배포하려면 한번더");
-        		k++;
-        		deploy.add(k);
+        
+        int j = 0;
+        while(true){
+        	if(days_.get(j) >= days_.get(j+1)){
+        		days_.remove(j+1);
+        		cnt++;
         	}else{
-//        		System.out.println("배포해도됨");
-        		if(i==progresses.length-1){
-        			k=1;
-        			deploy.add(k);
-        		}else{
-        			deploy.add(k);
-        			k=1;
-        			chk = days[i];
-        		}
+        		j++;
+        		deploy.add(cnt);
+        		cnt=1;
+        	}
+        	
+        	if(days_.size()-1 == deploy.size()){
+        		deploy.add(cnt);
+        		break;
         	}
         }
-//		System.out.println(deploy);
-		
+        
+//        System.out.println(deploy);
+        
 		int[] answer = new int[deploy.size()];
 		for(int i = 0; i < deploy.size(); i++){
+//			System.out.println("i: "+i);
 			answer[i]=deploy.get(i);
 //			System.out.println(answer[i]);
 		}
